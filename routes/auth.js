@@ -17,11 +17,15 @@ router.post("/register", async (req, res) => {
   try {
     const { username, email, password, role, profile : { name, bio, avatar } } = req.body;
 
+    if (role && !["admin", "user"].includes(role)) {
+      return res.status(400).json({ message: "Invalid role" });
+    }
+
     // Check if user already exists
     let user = await User.findOne({ username });
     if (user) return res.status(400).json({ message: "User already exists" });
 
-    user = new User({ username, email, password, role, profile : { name, bio, avatar } });
+    user = new User({ username, email, password, role: role || "user", profile : { name, bio, avatar } });
     await user.save();
 
     res.status(201).json({ message: "User registered successfully" });
