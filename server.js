@@ -3,6 +3,11 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
 
+// Import routes
+const userRoutes = require("./routes/userRoutes");
+const articleRoutes = require("./routes/articleRoutes");
+const commentRoutes = require("./routes/commentRoutes");
+
 const app = express();
 
 // Connect to MongoDB
@@ -12,10 +17,11 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-// Test route
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+// Register API routes
+app.use("/api/users", userRoutes);
+app.use("/api/articles", articleRoutes);
+app.use("/api/comments", commentRoutes);
+
 
 // Start the server
 const PORT = process.env.PORT || 5000;
