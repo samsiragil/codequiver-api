@@ -1,7 +1,15 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const User = require("../models/User");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
+
+router.get("/profile", authMiddleware, async (req, res) => {
+  const user = await User.findById(req.user.id);
+  if (!user) return res.status(404).json({ message: "User not found" });
+  res.json({ message: "Welcome to your profile!", user });
+});
 
 // Get all users
 router.get("/", async (req, res) => {
