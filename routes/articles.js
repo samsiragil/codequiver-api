@@ -84,12 +84,28 @@ router.put("/restore/:id", authMiddleware, authorize(["admin"]), async (req, res
 // Get all articles
 router.get("/", async (req, res) => {
   try {
-    const articles = await Article.find({ deletedAt: null }).populate("author");
-    res.json(articles);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    let { page = 1, limit = 10 } = req.query;
+    page = parseInt(page);
+    limit = parseInt(limit);
+
+    const totalArticles = await Article.countDocuments({ deletedAt: null });
+    const articles = await Article.find({ deletedAt: null })
+      .populate("author", "name")
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    res.json({
+      totalArticles,
+      totalPages: Math.ceil(totalArticles / limit),
+      currentPage: page,
+      articles,
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
   }
 });
+
 
 // Get a single article by slug
 router.get("/:slug", async (req, res) => {
