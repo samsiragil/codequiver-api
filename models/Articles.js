@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const ArticleSchema = new mongoose.Schema(
   {
@@ -11,12 +11,12 @@ const ArticleSchema = new mongoose.Schema(
     category: { type: String, required: true },
     tags: [{ type: String }],
     status: { type: String, enum: ["published", "draft"], default: "draft" },
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comments" }],
     views: { type: Number, default: 0 },
     deletedAt: { type: Date, default: null }
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Article", ArticleSchema);
+export default mongoose.model("Article", ArticleSchema);

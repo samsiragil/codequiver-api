@@ -1,7 +1,8 @@
-const express = require("express");
-const Article = require("../models/Articles");
-const authMiddleware = require("../middleware/authMiddleware");
-const authorize = require("../middleware/authorize");
+import express from "express";
+import Article from "../models/Articles.js";
+import authMiddleware from "../middleware/authMiddleware.js";
+import authorize from "../middleware/authorize.js";
+
 const router = express.Router();
 
 // Create new article
@@ -123,4 +124,4 @@ router.get("/:slug", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

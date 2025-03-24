@@ -1,16 +1,7 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const connectDB = require("./config/db");
-const mongoose = require("mongoose");
-
-// Import routes
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/userRoutes");
-const articleRoutes = require("./routes/articles");
-const commentRoutes = require("./routes/commentRoutes");
-const categoriesRoutes = require('./routes/categories');
-const tagsRoutes = require('./routes/tags');
+import "dotenv/config"; // Menggantikan require("dotenv").config();
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
 
 const app = express();
 
@@ -18,13 +9,20 @@ const app = express();
 app.use(express.json());
 
 // Global rate limit
-const limiter = require("./middlewares/rateLimit");
+import limiter from "./middleware/rateLimit.js";
 app.use(limiter);
-
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Import routes
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import articleRoutes from "./routes/articles.js";
+import commentRoutes from "./routes/comments.js";
+import categoriesRoutes from "./routes/categories.js";
+import tagsRoutes from "./routes/tags.js";
 
 // Register API routes
 app.use("/api/auth", authRoutes);

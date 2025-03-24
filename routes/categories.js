@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const authMiddleware = require("../middleware/authMiddleware");
-const authorize = require("../middleware/authorize");
-const Category = require("../models/Categories");
+import express from "express";
+import authMiddleware from "../middleware/authMiddleware.js";
+import authorize from "../middleware/authorize.js";
+import Category from "../models/Categories.js";
 
+const router = express.Router();
 // ✅ Admin can create category
 router.post("/", authMiddleware, authorize(["admin"]), async (req, res) => {
   try {
@@ -60,4 +60,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

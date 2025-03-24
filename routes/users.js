@@ -1,7 +1,6 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const User = require("../models/Users");
-const authMiddleware = require("../middleware/authMiddleware");
+import express from "express";
+import User from "../models/Users.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -32,4 +31,4 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

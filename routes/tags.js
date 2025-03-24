@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const authMiddleware = require("../middleware/authMiddleware");
-const authorize = require("../middleware/authorize");
-const Tag = require("../models/Tags");
+import express from "express";
+import authMiddleware from "../middleware/authMiddleware.js";
+import authorize from "../middleware/authorize.js";
+import Tag from "../models/Tags.js";
 
+const router = express.Router();
 // ✅ Admin can create tag
 router.post("/", authMiddleware, authorize(["admin"]), async (req, res) => {
   try {
@@ -58,4 +58,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

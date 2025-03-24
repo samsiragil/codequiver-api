@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const TagsSchema = new mongoose.Schema(
   {
@@ -10,4 +10,4 @@ const TagsSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Tags", TagsSchema);
+export default mongoose.model("Tags", TagsSchema);
