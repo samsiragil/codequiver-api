@@ -52,7 +52,8 @@ router.delete("/:id", authMiddleware, authorize(["admin"]), async (req, res) => 
     const article = await Article.findById(id);
     if (!article) return res.status(404).json({ message: "Article not found" });
 
-    await article.deleteOne();
+    article.deletedAt = new Date(); // Mark as deleted
+    await article.save();
     res.json({ message: "Article deleted successfully" });
 
   } catch (error) {
@@ -60,10 +61,30 @@ router.delete("/:id", authMiddleware, authorize(["admin"]), async (req, res) => 
   }
 });
 
+// Restore deleted article
+router.put("/restore/:id", authMiddleware, authorize(["admin"]), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const article = await Article.findById(id);
+
+    if (!article) return res.status(404).json({ message: "Article not found" });
+    if (!article.deletedAt) return res.status(400).json({ message: "Article is not deleted" });
+
+    article.deletedAt = null; // Restore the article
+    await article.save();
+
+    res.json({ message: "Article restored successfully" });
+
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
+
 // Get all articles
 router.get("/", async (req, res) => {
   try {
-    const articles = await Article.find().populate("author");
+    const articles = await Article.find({ deletedAt: null }).populate("author");
     res.json(articles);
   } catch (err) {
     res.status(500).json({ error: err.message });

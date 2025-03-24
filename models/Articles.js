@@ -13,7 +13,8 @@ const ArticleSchema = new mongoose.Schema(
     status: { type: String, enum: ["published", "draft"], default: "draft" },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
-    views: { type: Number, default: 0 }
+    views: { type: Number, default: 0 },
+    deletedAt: { type: Date, default: null }
   },
   { timestamps: true }
 );

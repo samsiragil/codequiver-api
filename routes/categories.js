@@ -41,7 +41,8 @@ router.delete("/:id", authMiddleware, authorize(["admin"]), async (req, res) => 
     const category = await Category.findById(id);
     if (!category) return res.status(404).json({ message: "Category not found" });
 
-    await category.deleteOne();
+    category.deletedAt = new Date(); // Mark as deleted
+    await category.save();
     res.json({ message: "Category deleted successfully" });
 
   } catch (error) {

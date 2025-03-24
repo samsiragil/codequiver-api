@@ -39,7 +39,8 @@ router.delete("/:id", authMiddleware, authorize(["admin"]), async (req, res) => 
     const tag = await Tag.findById(id);
     if (!tag) return res.status(404).json({ message: "Tag not found" });
 
-    await Tag.deleteOne();
+    tag.deletedAt = new Date(); // Mark as deleted
+    await tag.save();
     res.json({ message: "Tag deleted successfully" });
 
   } catch (error) {
