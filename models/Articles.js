@@ -7,7 +7,7 @@ const ArticleSchema = new mongoose.Schema(
     description: { type: String },
     content: { type: Object, required: true },
     editorContent: { type: Object },
-    author: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "Users", required: true },
     category: { type: String, required: true },
     tags: [{ type: String }],
     status: { type: String, enum: ["published", "draft"], default: "draft" },
@@ -19,4 +19,4 @@ const ArticleSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Article", ArticleSchema);
+export default mongoose.model("Articles", ArticleSchema);

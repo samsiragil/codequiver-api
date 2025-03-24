@@ -5,7 +5,7 @@ const CategoriesSchema = new mongoose.Schema(
     name: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     description: { type: String },
-    author: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "Users", required: true },
     deletedAt: { type: Date, default: null }
   },
   { timestamps: true }

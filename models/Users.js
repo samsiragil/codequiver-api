@@ -25,4 +25,4 @@ UserSchema.pre("save", async function (next) {
 });
 
 
-export default mongoose.model("User", UserSchema);
+export default mongoose.model("Users", UserSchema);
