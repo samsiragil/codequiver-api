@@ -7,8 +7,10 @@ const mongoose = require("mongoose");
 // Import routes
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/userRoutes");
-const articleRoutes = require("./routes/articleRoutes");
+const articleRoutes = require("./routes/articles");
 const commentRoutes = require("./routes/commentRoutes");
+const categoriesRoutes = require('./routes/categories');
+const tagsRoutes = require('./routes/tags');
 
 const app = express();
 
@@ -21,9 +23,11 @@ app.use(express.json());
 
 // Register API routes
 app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/articles", articleRoutes);
-app.use("/api/comments", commentRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/article", articleRoutes);
+app.use("/api/comment", commentRoutes);
+app.use("/api/category", categoriesRoutes);
+app.use("/api/tag", tagsRoutes);
 
 // Connect to MongoDB
 mongoose
