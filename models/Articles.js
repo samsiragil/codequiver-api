@@ -11,8 +11,7 @@ const ArticleSchema = new mongoose.Schema(
     category: { type: String, required: true },
     tags: [{ type: String }],
     status: { type: String, enum: ["published", "draft"], default: "draft" },
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
-    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comments" }],
+    likeCount: { type: Number, default: 0 }, 
     views: { type: Number, default: 0 },
     deletedAt: { type: Date, default: null }
   },

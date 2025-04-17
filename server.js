@@ -21,6 +21,7 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import articleRoutes from "./routes/articles.js";
 import commentRoutes from "./routes/comments.js";
+import likeRoutes from "./routes/likes.js";
 import categoriesRoutes from "./routes/categories.js";
 import tagsRoutes from "./routes/tags.js";
 
@@ -29,6 +30,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/article", articleRoutes);
 app.use("/api/comment", commentRoutes);
+app.use("/api/like", likeRoutes);
 app.use("/api/category", categoriesRoutes);
 app.use("/api/tag", tagsRoutes);
 
